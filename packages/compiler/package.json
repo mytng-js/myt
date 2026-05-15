@@ -1,0 +1,21 @@
+{
+  "name": "@mytng/compiler",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "files": [
+    "dist"
+  ],
+  "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mytng-js/myt.git",
+    "directory": "packages/compiler"
+  },
+  "bugs": {
+    "url": "https://github.com/mytng-js/myt/issues"
+  },
+  "homepage": "https://github.com/mytng-js/myt/tree/main/packages/compiler#readme",
+  "author": "",
+  "license": "MIT"
+}
