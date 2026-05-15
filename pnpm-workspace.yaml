@@ -1,0 +1,7 @@
+packages:
+  - packages/*
+  - playgrounds/*
+
+catalog:
+  vite: ^8.0.13
+  vitest: ^4.1.6
