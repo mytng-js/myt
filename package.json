@@ -1,26 +1,45 @@
 {
   "name": "myt-root",
   "description": "",
-  "type": "module",
   "version": "0.0.0",
   "private": true,
+  "type": "module",
   "packageManager": "pnpm@10.33.4",
   "engines": {
-    "node": ">=20.20.0"
+    "node": ">=24.15.0"
   },
   "files": [
     "dist"
   ],
   "scripts": {
-    "preinstall": "npx only-allow pnpm"
+    "check": "npx tsc --incremental --noEmit",
+    "lint": "oxlint",
+    "fmt": "oxfmt",
+    "fmt-check": "oxfmt --check",
+    "preinstall": "npx only-allow pnpm",
+    "postinstall": "simple-git-hooks"
   },
-  "homepage": "https://github.com/mytng-js/myt",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/mytng-js/myt.git"
+  "simple-git-hooks": {
+    "pre-commit": "pnpm lint-staged && pnpm check",
+    "commit-msg": "node scripts/verify-commit.mjs"
+  },
+  "lint-staged": {
+    "*.{js,mjs,json}": [
+      "oxfmt --no-error-on-unmatched-pattern"
+    ],
+    "*.ts?(x)": [
+      "oxlint --fix",
+      "oxfmt --no-error-on-unmatched-pattern"
+    ]
   },
   "devDependencies": {
-    "@types/node": "^25.7.0",
+    "@types/node": "^25.9.1",
+    "chalk": "^5.6.2",
+    "lint-staged": "^17.0.5",
+    "oxfmt": "^0.51.0",
+    "oxlint": "^1.66.0",
+    "puppeteer": "^25.0.4",
+    "simple-git-hooks": "^2.13.1",
     "typescript": "^6.0.3",
     "vite": "catalog:",
     "vitest": "catalog:"

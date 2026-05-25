@@ -1,0 +1,34 @@
+{
+  "compilerOptions": {
+    "outDir": "temp",
+    "sourceMap": false,
+    "newLine": "LF",
+    "useDefineForClassFields": false,
+    "target": "es2016",
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "allowJs": false,
+    "strict": true,
+    "noUnusedLocals": true,
+    "experimentalDecorators": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "removeComments": false,
+    "isolatedDeclarations": false,
+    "composite": true,
+    "verbatimModuleSyntax": true,
+    "jsx": "preserve",
+    "lib": ["es2016", "dom"],
+    "types": ["vitest/globals", "puppeteer", "node"],
+    "rootDir": ".",
+    "paths": {
+      "@mytng/*": ["./packages/*/src"],
+      "mytng": ["./packages/myt/src"],
+      "*": ["./*"]
+    }
+  },
+  "include": ["packages/*/src", "packages/*/types", "packages/*/__tests__", "scripts/*"],
+  "exclude": ["dist"]
+}
