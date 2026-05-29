@@ -1,7 +1,12 @@
 packages:
   - packages/*
-  - playgrounds/*
+  - apps/*
 
 catalog:
   vite: ^8.0.14
   vitest: ^4.1.7
+  '@vitest/browser-playwright': ^4.1.7
+
+allowBuilds:
+  'puppeteer': true
+  'simple-git-hooks': true

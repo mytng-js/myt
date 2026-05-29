@@ -53,7 +53,7 @@
 
     // __tests__
     {
-      "files": ["**/__tests__/**", "playgrounds/dts-test/**"],
+      "files": ["**/__tests__/**"],
       "rules": {
         "no-console": "off",
         "no-restricted-globals": "off",
@@ -106,7 +106,7 @@
     },
 
     {
-      "files": ["playgrounds/myt-demo/**"],
+      "files": ["apps/dev-playground/**"],
       "rules": {
         "no-restricted-globals": ["error", "module", "require"],
         "oxc/no-const-enum": "error",

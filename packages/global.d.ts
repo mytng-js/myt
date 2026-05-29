@@ -1,0 +1,9 @@
+// Global compile-time constants
+declare var __VERSION__: string
+declare var __DEV__: boolean
+declare var __SSR__: boolean
+
+declare var __TEST__: boolean
+declare var __E2E_TEST__: boolean
+
+declare module '*.myt' {}

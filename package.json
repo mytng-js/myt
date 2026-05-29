@@ -4,18 +4,19 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "packageManager": "pnpm@10.33.4",
+  "packageManager": "pnpm@11.4.0",
   "engines": {
-    "node": ">=24.15.0"
+    "node": ">=24.16.0"
   },
   "files": [
     "dist"
   ],
   "scripts": {
     "check": "npx tsc --incremental --noEmit",
+    "clean": "rimraf --glob packages/*/dist temp",
     "lint": "oxlint",
-    "fmt": "oxfmt",
-    "fmt-check": "oxfmt --check",
+    "format": "oxfmt",
+    "format-check": "oxfmt --check",
     "preinstall": "npx only-allow pnpm",
     "postinstall": "simple-git-hooks"
   },
@@ -34,12 +35,16 @@
   },
   "devDependencies": {
     "@types/node": "^25.9.1",
+    "@vitest/browser-playwright": "catalog:",
     "chalk": "^5.6.2",
     "lint-staged": "^17.0.5",
+    "npm-run-all2": "^9.0.1",
     "oxfmt": "^0.51.0",
     "oxlint": "^1.66.0",
     "puppeteer": "^25.0.4",
+    "rimraf": "^6.1.3",
     "simple-git-hooks": "^2.13.1",
+    "tsdown": "^0.22.0",
     "typescript": "^6.0.3",
     "vite": "catalog:",
     "vitest": "catalog:"
