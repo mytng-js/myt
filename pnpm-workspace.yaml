@@ -3,9 +3,9 @@ packages:
   - apps/*
 
 catalog:
-  vite: ^8.0.14
-  vitest: ^4.1.7
-  '@vitest/browser-playwright': ^4.1.7
+  vite: ^8.0.16
+  vitest: ^4.1.8
+  '@vitest/browser-playwright': ^4.1.8
 
 allowBuilds:
   'puppeteer': true
