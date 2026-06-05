@@ -91,6 +91,10 @@ importers:
         version: 4.1.8(@types/node@25.9.1)(@vitest/browser-playwright@4.1.8)(vite@8.0.16(@types/node@25.9.1)(jiti@2.7.0)(yaml@2.9.0))
 
   apps/dev-playground:
+    dependencies:
+      mytng:
+        specifier: workspace:*
+        version: link:../../packages/myt
     devDependencies:
       '@tailwindcss/vite':
         specifier: 'catalog:'
