@@ -29,6 +29,12 @@
       "*": ["./*"]
     }
   },
-  "include": ["packages/*/src", "packages/*/types", "packages/*/__tests__", "scripts/*"],
+  "include": [
+    "packages/global.d.ts",
+    "packages/*/src",
+    "packages/*/types",
+    "packages/*/__tests__",
+    "scripts/*"
+  ],
   "exclude": ["dist"]
 }

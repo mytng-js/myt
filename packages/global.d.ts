@@ -7,3 +7,10 @@ declare var __TEST__: boolean
 declare var __E2E_TEST__: boolean
 
 declare module '*.myt' {}
+
+declare interface String {
+  /**
+   * @deprecated Please use String.prototype.slice instead of String.prototype.substring in the repository.
+   */
+  substring(start: number, end?: number): string
+}
