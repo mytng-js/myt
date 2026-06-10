@@ -51,6 +51,23 @@
       "plugins": ["typescript"]
     },
 
+    // Browser DOM
+    {
+      "files": ["packages/myt/client/**"],
+      "rules": {
+        "no-restricted-globals": ["error", "module", "require"]
+      }
+    },
+
+    // Node
+    {
+      "files": ["packages/myt/server/**", "packages/compiler/**", "packages/vite-plugin/**"],
+      "rules": {
+        "no-restricted-globals": ["error", "window", "document"],
+        "oxc/no-const-enum": "error"
+      }
+    },
+
     // __tests__
     {
       "files": ["**/__tests__/**"],
@@ -88,23 +105,6 @@
       "plugins": ["vitest", "typescript"]
     },
 
-    // DOM
-    {
-      "files": ["packages/myt/**"],
-      "rules": {
-        "no-restricted-globals": ["error", "module", "require"]
-      }
-    },
-
-    // Node
-    {
-      "files": ["packages/compiler/**"],
-      "rules": {
-        "no-restricted-globals": ["error", "window", "document"],
-        "oxc/no-const-enum": "error"
-      }
-    },
-
     {
       "files": ["apps/dev-playground/**"],
       "rules": {
@@ -129,7 +129,7 @@
 
     // Node scripts
     {
-      "files": ["scripts/**", "./*.{js,.mjs,ts}"],
+      "files": ["scripts/**", "./*.{js,.mjs,ts}", "packages/*/*.js"],
       "rules": {
         "no-restricted-globals": "off",
         "oxc/no-const-enum": "error",

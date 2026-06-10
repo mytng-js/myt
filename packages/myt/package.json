@@ -2,10 +2,48 @@
   "name": "mytng",
   "version": "0.0.0",
   "description": "",
-  "main": "index.js",
+  "type": "module",
+  "main": "./dist/myt.js",
+  "module": "./dist/myt.js",
+  "types": "./dist/myt.d.ts",
+  "sideEffects": false,
   "files": [
     "dist"
   ],
+  "exports": {
+    ".": {
+      "worker": {
+        "types": "./dist/myt.d.ts",
+        "import": "./dist/myt.js",
+        "default": "./dist/myt.js"
+      },
+      "browser": {
+        "types": "./dist/myt.d.ts",
+        "import": "./dist/myt-browser.js",
+        "default": "./dist/myt-browser.js"
+      },
+      "node": {
+        "types": "./dist/myt.d.ts",
+        "import": "./dist/myt.js",
+        "default": "./dist/myt.js"
+      },
+      "types": "./dist/myt.d.ts",
+      "import": "./dist/myt.js",
+      "default": "./dist/myt.js"
+    },
+    "./server": {
+      "types": "./dist/server.d.ts",
+      "import": "./dist/server.js",
+      "default": "./dist/server.js"
+    },
+    "./client": {
+      "types": "./dist/client.d.ts",
+      "import": "./dist/client.js",
+      "default": "./dist/client.js"
+    },
+    "./dist/*": "./dist/*",
+    "./package.json": "./package.json"
+  },
   "keywords": [],
   "repository": {
     "type": "git",

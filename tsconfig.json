@@ -5,8 +5,8 @@
     "newLine": "LF",
     "useDefineForClassFields": false,
     "target": "es2016",
-    "module": "esnext",
-    "moduleResolution": "bundler",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
     "allowJs": false,
     "strict": true,
     "noUnusedLocals": true,
@@ -34,7 +34,8 @@
     "packages/*/src",
     "packages/*/types",
     "packages/*/__tests__",
-    "scripts/*"
+    "scripts/*",
+    "tsdown.config.ts"
   ],
   "exclude": ["dist"]
 }
