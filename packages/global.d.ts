@@ -1,6 +1,10 @@
 // Global compile-time constants
 declare var __VERSION__: string
 declare var __DEV__: boolean
+
+// Tree-shaking
+// is server ==> __SSR__ = true
+// is client ==> __SSR__ = false
 declare var __SSR__: boolean
 
 declare var __TEST__: boolean

@@ -1,11 +1,17 @@
-# mytng
+# Mytng Core
 
-myt + ng
+```ts
+import {} from 'mytng'
+```
 
-# mytng/client
+# Client-side code only
 
-Client-side code only
+```ts
+import {} from 'mytng/client'
+```
 
-# mytng/server
+# Server-side code only
 
-Server-side code only
+```ts
+import {} from 'mytng/server'
+```

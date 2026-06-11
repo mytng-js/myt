@@ -10,6 +10,24 @@ Messages must be matched by the following regex:
 /^(revert: )?(feat|fix|docs|dx|style|refactor|perf|test|workflow|build|ci|chore|types|wip|release)(\(.+\))?: .{1,50}/
 ```
 
+## Allowed Commit Types
+
+- `feat`: A new feature
+- `fix`: A bug fix
+- `docs`: Documentation only changes
+- `dx`: Developer experience improvements
+- `style`: Code style changes (white‑space, formatting)
+- `refactor`: Code refactoring
+- `perf`: A performance improvement
+- `test`: Adding or updating tests
+- `workflow`: Changes related to workflow
+- `build`: Changes to build system or external dependencies
+- `ci`: Changes to CI configuration files and scripts
+- `chore`: Other changes that don't modify source or test files
+- `types`: Changes to type definitions
+- `wip`: Work in progress
+- `release`: Release related commits
+
 #### Examples
 
 Appears under "Features" header, `compiler` subheader:
