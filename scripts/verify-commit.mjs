@@ -18,7 +18,7 @@ if (!commitRE.test(msg)) {
       chalk.red(
         `  Proper commit message format is required for automated changelog generation. Examples:\n\n`,
       ) +
-      `    ${chalk.green(`feat(compiler): add 'comments' option`)}\n` +
+      `    ${chalk.green(`chore(config): your commit summary`)}\n` +
       `    ${chalk.green(`fix(bind:value): handle events on blur (close #28)`)}\n\n` +
       chalk.red(`  See .github/commit-convention.md for more details.\n`),
   )

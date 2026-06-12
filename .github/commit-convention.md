@@ -10,7 +10,7 @@ Messages must be matched by the following regex:
 /^(revert: )?(feat|fix|docs|dx|style|refactor|perf|test|workflow|build|ci|chore|types|wip|release)(\(.+\))?: .{1,50}/
 ```
 
-## Allowed Commit Types
+#### Allowed Commit Types
 
 - `feat`: A new feature
 - `fix`: A bug fix
@@ -30,34 +30,22 @@ Messages must be matched by the following regex:
 
 #### Examples
 
-Appears under "Features" header, `compiler` subheader:
-
 ```
-feat(compiler): add 'comments' option
+feat(vite-plugin): your commit summary
 ```
 
-Appears under "Bug Fixes" header, `bind:value` subheader, with a link to issue #28:
-
 ```
-fix(bind:value): handle events on blur
-
-close #28
+fix(signal): your commit summary
 ```
 
-Appears under "Performance Improvements" header, and under "Breaking Changes" with the breaking change explanation:
-
 ```
-perf(core): improve vdom diffing by removing 'foo' option
-
-BREAKING CHANGE: The 'foo' option has been removed.
+perf(core): your commit summary
 ```
 
 The following commit and commit `667ecc1` do not appear in the changelog if they are under the same release. If not, the revert commit appears under the "Reverts" header.
 
 ```
-revert: feat(compiler): add 'comments' option
-
-This reverts commit 667ecc1654a317a13331b17617d973392f415f02.
+revert: feat(vite-plugin): your commit summary
 ```
 
 ### Full Message Format
@@ -86,7 +74,7 @@ Other prefixes are up to your discretion. Suggested prefixes are `docs`, `chore`
 
 ### Scope
 
-The scope could be anything specifying the place of the commit change. For example `compiler`, `ssr` etc...
+The scope could be anything specifying the place of the commit change. For example `signal`, `ssr` etc...
 
 ### Subject
 

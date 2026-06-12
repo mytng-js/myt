@@ -121,8 +121,6 @@ importers:
         specifier: 'catalog:'
         version: 8.0.16(@types/node@25.9.2)(jiti@2.7.0)(yaml@2.9.0)
 
-  packages/compiler: {}
-
   packages/myt: {}
 
   packages/vite-plugin: {}

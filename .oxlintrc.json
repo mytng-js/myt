@@ -61,7 +61,7 @@
 
     // Node
     {
-      "files": ["packages/myt/server/**", "packages/compiler/**", "packages/vite-plugin/**"],
+      "files": ["packages/myt/server/**", "packages/vite-plugin/**"],
       "rules": {
         "no-restricted-globals": ["error", "window", "document"],
         "oxc/no-const-enum": "error"

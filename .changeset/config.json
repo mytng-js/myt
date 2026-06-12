@@ -1,11 +1,11 @@
 {
   "$schema": "https://unpkg.com/@changesets/config@3.1.4/schema.json",
-  "changelog": ["@changesets/changelog-github", { "repo": "webx-js/myt" }],
+  "changelog": ["@changesets/changelog-github", { "repo": "mytng-js/myt" }],
   "commit": false,
-  "fixed": [["@webx/vite-plugin", "@webx/compiler"]],
+  "fixed": [],
   "linked": [],
   "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
-  "ignore": ["!(@webx/*|webx)"]
+  "ignore": ["!(@mytng/*|mytng)"]
 }
