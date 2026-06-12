@@ -5,8 +5,12 @@
   "type": "module",
   "main": "index.js",
   "files": [
-    "dist"
+    "dist",
+    "index.js"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "keywords": [],
   "repository": {
     "type": "git",

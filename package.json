@@ -15,20 +15,20 @@
     "dev": "run-s dev-play dev-watch",
     "dev-play": "pnpm pack-build && pnpm run --filter='./apps/dev-playground' dev",
     "dev-watch": "tsdown --watch",
-    "play-build": "pnpm build && pnpm run --filter='./apps/dev-playground' build",
-    "check": "pnpm tsc --incremental --noEmit",
-    "build": "pnpm check && pnpm pack-build",
-    "pack-build": "tsdown --tsconfig tsconfig.build.json && rimraf --glob 'packages/*/dist/*-browser.d.ts'",
+    "dev-build": "pnpm run build && pnpm run --filter='./apps/dev-playground' build",
     "test": "vitest",
     "test-unit": "vitest --project unit*",
     "test-e2e": "vitest --project e2e",
     "test-coverage": "vitest --ui --project unit* --coverage.enabled=true",
     "bench": "vitest bench --project=unit --outputJson=temp/bench.json",
     "bench-compare": "vitest bench --project=unit --compare=temp/bench.json",
-    "clean": "rimraf --glob packages/*/dist temp",
     "lint": "oxlint",
     "format": "oxfmt",
     "format-check": "oxfmt --check",
+    "clean": "rimraf --glob packages/*/dist temp",
+    "check": "pnpm tsc --incremental --noEmit",
+    "build": "pnpm check && pnpm pack-build",
+    "pack-build": "tsdown --tsconfig tsconfig.build.json && rimraf --glob 'packages/*/dist/*-browser.d.ts'",
     "preinstall": "npx only-allow pnpm",
     "postinstall": "simple-git-hooks"
   },
@@ -46,10 +46,14 @@
     ]
   },
   "devDependencies": {
+    "@changesets/changelog-github": "catalog:",
+    "@changesets/cli": "catalog:",
     "@tailwindcss/postcss": "catalog:",
     "@tailwindcss/vite": "catalog:",
     "@types/node": "^25.9.2",
-    "@vitest/browser-playwright": "catalog:",
+    "@vitest/browser-playwright": "^4.1.8",
+    "@vitest/coverage-v8": "^4.1.8",
+    "@vitest/ui": "^4.1.8",
     "chalk": "^5.6.2",
     "lint-staged": "^17.0.7",
     "npm-run-all2": "^9.0.1",
@@ -64,6 +68,6 @@
     "tsdown": "^0.22.2",
     "typescript": "catalog:",
     "vite": "catalog:",
-    "vitest": "catalog:"
+    "vitest": "^4.1.8"
   }
 }

@@ -91,38 +91,47 @@ function getUserConfig(list: UserConfig[], pkgDir: PkgDir, items: EntryItem[]) {
   const clientEntry: Record<string, string> = {}
   const serverEntry: Record<string, string> = {}
 
+  let hasClientEntry = false
+  let hasServerEntry = false
+
   items.forEach(item => {
     const entry = item.entryFile
+    const subDir = item.subDir === 'src' ? item.pkgDir : item.subDir
 
     if (item.hasServer) {
-      let sub = item.subDir === 'src' ? item.pkgDir : item.subDir
-      serverEntry[sub] = entry
-      clientEntry[`${sub}-browser`] = entry
+      serverEntry[subDir] = entry
+      clientEntry[`${subDir}-browser`] = entry
+      hasClientEntry = hasServerEntry = true
     } else if (item.onlyClientEntry) {
-      clientEntry[item.subDir] = entry
+      clientEntry[subDir] = entry
+      hasClientEntry = true
     } else {
-      serverEntry[item.subDir] = entry
+      serverEntry[subDir] = entry
+      hasServerEntry = true
     }
   })
 
-  list.push(
-    // ### clientConfig:
-    // dist/client.js
-    // dist/*.js => dist/*-browser.js
-    {
+  // ### clientConfig:
+  // dist/client.js
+  // dist/*.js => dist/*-browser.js
+  if (hasClientEntry) {
+    list.push({
       ...baseConfig,
       entry: clientEntry,
       define: { ...define },
       platform: 'browser',
-    },
-    // ### serverConfig:
-    // dist/server.js
-    // dist/*.js
-    {
+    })
+  }
+
+  // ### serverConfig:
+  // dist/server.js
+  // dist/*.js
+  if (hasServerEntry) {
+    list.push({
       ...baseConfig,
       entry: serverEntry,
       define: { ...define, __SSR__: 'true' },
       platform: 'node',
-    },
-  )
+    })
+  }
 }

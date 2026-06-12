@@ -1,0 +1,36 @@
+{
+  "name": "@mytng/vite-plugin",
+  "version": "0.0.0",
+  "description": "",
+  "type": "module",
+  "main": "./dist/vite-plugin.js",
+  "module": "./dist/vite-plugin.js",
+  "types": "./dist/vite-plugin.d.ts",
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/vite-plugin.d.ts",
+      "import": "./dist/vite-plugin.js",
+      "default": "./dist/vite-plugin.js"
+    },
+    "./dist/*": "./dist/*",
+    "./package.json": "./package.json"
+  },
+  "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mytng-js/myt.git",
+    "directory": "packages/vite-plugin"
+  },
+  "bugs": {
+    "url": "https://github.com/mytng-js/myt/issues"
+  },
+  "homepage": "https://github.com/mytng-js/myt/tree/main/packages/vite-plugin#readme",
+  "author": "",
+  "license": "MIT"
+}
