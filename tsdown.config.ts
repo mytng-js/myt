@@ -78,16 +78,6 @@ function getUserConfig(list: UserConfig[], pkgDir: PkgDir, items: EntryItem[]) {
     __SSR__: 'false',
   }
 
-  const baseConfig: UserConfig = {
-    cwd: path.resolve(process.cwd(), `./packages/${pkgDir}`),
-    outDir: `dist`,
-    target: ['es2016', 'node18'],
-    // format: ['esm', 'cjs'],
-    dts: { sourcemap: false },
-    sourcemap: false,
-    fixedExtension: false,
-  }
-
   const clientEntry: Record<string, string> = {}
   const serverEntry: Record<string, string> = {}
 
@@ -111,6 +101,15 @@ function getUserConfig(list: UserConfig[], pkgDir: PkgDir, items: EntryItem[]) {
     }
   })
 
+  const baseConfig: UserConfig = {
+    cwd: path.resolve(process.cwd(), `./packages/${pkgDir}`),
+    outDir: `dist`,
+    // format: ['esm', 'cjs'],
+    dts: { sourcemap: false },
+    sourcemap: false,
+    fixedExtension: false,
+  }
+
   // ### clientConfig:
   // dist/client.js
   // dist/*.js => dist/*-browser.js
@@ -119,6 +118,7 @@ function getUserConfig(list: UserConfig[], pkgDir: PkgDir, items: EntryItem[]) {
       ...baseConfig,
       entry: clientEntry,
       define: { ...define },
+      target: 'es2016',
       platform: 'browser',
     })
   }
@@ -131,6 +131,7 @@ function getUserConfig(list: UserConfig[], pkgDir: PkgDir, items: EntryItem[]) {
       ...baseConfig,
       entry: serverEntry,
       define: { ...define, __SSR__: 'true' },
+      target: 'node24',
       platform: 'node',
     })
   }
