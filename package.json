@@ -28,7 +28,7 @@
     "clean": "rimraf --glob packages/*/dist temp",
     "check": "pnpm tsc --incremental --noEmit",
     "build": "pnpm check && pnpm pack-build",
-    "pack-build": "tsdown --tsconfig tsconfig.build.json && rimraf --glob 'packages/*/dist/*-browser.d.ts'",
+    "pack-build": "tsdown --tsconfig tsconfig.build.json && rimraf --glob 'packages/*/dist/*-ssr.d.ts'",
     "preinstall": "npx only-allow pnpm",
     "postinstall": "simple-git-hooks"
   },
@@ -48,6 +48,7 @@
   "devDependencies": {
     "@changesets/changelog-github": "catalog:",
     "@changesets/cli": "catalog:",
+    "@oxc-project/types": "^0.137.0",
     "@tailwindcss/postcss": "catalog:",
     "@tailwindcss/vite": "catalog:",
     "@types/node": "^26.0.0",

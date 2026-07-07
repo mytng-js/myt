@@ -1,7 +1,9 @@
+/// <reference lib="es2021" />
+
 import path from 'node:path'
 import { createRequire } from 'node:module'
 import { globSync } from 'tinyglobby'
-import { type UserConfig, defineConfig } from 'tsdown'
+import { type TsdownPlugin, type UserConfig, defineConfig } from 'tsdown'
 
 const require = createRequire(import.meta.url)
 
@@ -20,8 +22,8 @@ export default defineConfig(
     }).forEach(entryFile => {
       // packages/myt/client/index.ts => dist/client.js
       // packages/myt/server/index.ts => dist/server.js
-      // packages/myt/src/index.ts => server: dist/myt.js, client: dist/myt-browser.js
-      // packages/myt/*/index.ts => server: dist/*.js, client: dist/*-browser.js
+      // packages/myt/src/index.ts => server: dist/myt-ssr.js, client: dist/myt.js
+      // packages/myt/*/index.ts => server: dist/*-ssr.js, client: dist/*.js
       const [_, pkgDir, subDir] = entryFile.split('/') as ['packages', PkgDir, SubDir]
 
       if (subDir === pkgDir) return
@@ -89,8 +91,8 @@ function getUserConfig(list: UserConfig[], pkgDir: PkgDir, items: EntryItem[]) {
     const subDir = item.subDir === 'src' ? item.pkgDir : item.subDir
 
     if (item.hasServer) {
-      serverEntry[subDir] = entry
-      clientEntry[`${subDir}-browser`] = entry
+      serverEntry[`${subDir}-ssr`] = entry
+      clientEntry[subDir] = entry
       hasClientEntry = hasServerEntry = true
     } else if (item.onlyClientEntry) {
       clientEntry[subDir] = entry
@@ -108,11 +110,13 @@ function getUserConfig(list: UserConfig[], pkgDir: PkgDir, items: EntryItem[]) {
     dts: { sourcemap: false },
     sourcemap: false,
     fixedExtension: false,
+    minify: false,
+    plugins: [mytPlugin()],
   }
 
   // ### clientConfig:
   // dist/client.js
-  // dist/*.js => dist/*-browser.js
+  // dist/*.js => dist/*.js
   if (hasClientEntry) {
     list.push({
       ...baseConfig,
@@ -125,7 +129,7 @@ function getUserConfig(list: UserConfig[], pkgDir: PkgDir, items: EntryItem[]) {
 
   // ### serverConfig:
   // dist/server.js
-  // dist/*.js
+  // dist/*-ssr.js
   if (hasServerEntry) {
     list.push({
       ...baseConfig,
@@ -135,4 +139,19 @@ function getUserConfig(list: UserConfig[], pkgDir: PkgDir, items: EntryItem[]) {
       platform: 'node',
     })
   }
+}
+
+function mytPlugin() {
+  const implRegx = /\s+implements\s+([^{]+)\s+\{/g
+
+  const plugin: TsdownPlugin = {
+    name: 'myt-plugin',
+    renderChunk(code, chunk) {
+      if (chunk.fileName.endsWith('.d.ts') && code.includes(' implements ')) {
+        return code.replace(implRegx, ' {')
+      }
+    },
+  }
+
+  return plugin
 }

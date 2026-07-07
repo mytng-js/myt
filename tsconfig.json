@@ -32,6 +32,8 @@
   "include": [
     "packages/global.d.ts",
     "packages/*/src",
+    "packages/*/server",
+    "packages/*/client",
     "packages/*/types",
     "packages/*/__tests__",
     "scripts/*",

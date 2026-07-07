@@ -1,3 +1,11 @@
+export const isString = (obj: unknown): obj is string => typeof obj === 'string'
+
+export const isNumber = (obj: unknown): obj is number => typeof obj === 'number'
+
+export const isSymbol = (obj: unknown): obj is symbol => typeof obj === 'symbol'
+
+export const isFunction = <T extends Function>(obj: unknown): obj is T => typeof obj === 'function'
+
 const _toString = Object.prototype.toString
 
 export const toTypeString = (obj: unknown): ObjectTypeString => _toString.call(obj)
@@ -6,16 +14,10 @@ export const toRawType = (obj: unknown): RawTypeString => toTypeString(obj).slic
 
 export const isArray = Array.isArray
 
-export const isFunction = (obj: unknown): obj is Function => typeof obj === 'function'
-
-export const isString = (obj: unknown): obj is string => typeof obj === 'string'
-
-export const isSymbol = (obj: unknown): obj is symbol => typeof obj === 'symbol'
-
-export const isObject = (obj: unknown): obj is Record<any, any> =>
+export const isObject = <T extends Record<any, any>>(obj: unknown): obj is T =>
   obj !== null && typeof obj === 'object'
 
-export const isPlainObject = (obj: unknown): obj is object =>
+export const isPlainObject = <T extends object>(obj: unknown): obj is T =>
   toTypeString(obj) === '[object Object]'
 
 export const isMap = <K, V>(obj: unknown): obj is Map<K, V> => toTypeString(obj) === '[object Map]'

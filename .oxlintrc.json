@@ -32,30 +32,50 @@
         "oxc/no-rest-spread-properties": "error",
         "oxc/no-async-await": "error",
         "oxc/no-optional-chaining": "error",
+
         "sort-imports": [
           "error",
           {
             "ignoreDeclarationSort": true
           }
         ],
-        "@typescript-eslint/prefer-ts-expect-error": "error",
-        "@typescript-eslint/consistent-type-imports": [
+        "typescript/no-duplicate-enum-values": "error",
+        "typescript/prefer-ts-expect-error": "error",
+        "typescript/consistent-type-imports": [
           "error",
           {
             "fixStyle": "inline-type-imports",
             "disallowTypeAnnotations": false
           }
         ],
-        "@typescript-eslint/no-import-type-side-effects": "error"
+        "typescript/no-import-type-side-effects": "error"
       },
       "plugins": ["typescript"]
     },
 
     // Browser DOM
     {
-      "files": ["packages/myt/client/**"],
+      "files": ["packages/myt/client/**", "packages/myt/src/helpers/browser.ts"],
+      "plugins": ["import"],
       "rules": {
-        "no-restricted-globals": ["error", "module", "require"]
+        "no-restricted-globals": ["error", "module", "require"],
+        "import/no-nodejs-modules": "error"
+      }
+    },
+
+    // myt server runtime: __SSR__ === true
+    // myt client runtime: __SSR__ === false
+    {
+      "files": ["packages/myt/src/**"],
+      "plugins": ["import"],
+      "rules": {
+        "import/no-nodejs-modules": "error",
+        "no-restricted-imports": [
+          "error",
+          {
+            "paths": ["mytng/server", "mytng/client"]
+          }
+        ]
       }
     },
 
