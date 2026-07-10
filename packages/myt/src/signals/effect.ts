@@ -1,5 +1,5 @@
 import { NOOP } from '../helpers'
-import { type SchedulerJob, SchedulerJobFlags, queueJob } from '../core'
+import { type SchedulerJob, SchedulerJobFlags, queueJob } from '../browser'
 import { ReactiveFlags } from './constants'
 import {
   type ReactiveNode,
@@ -75,15 +75,16 @@ export class Effect<T = void> implements ReactiveNode {
     return false
   }
 
-  run(initState?: any): T {
-    if (!this.active) return this.fn(initState)
+  run(...args: any[]): T {
+    const { active, fn } = this
+    if (!active) return fn(...args)
 
     _cleanup(this)
     const prevSub = startTracking(this)
     incRunDepth()
 
     try {
-      return this.fn(initState)
+      return fn(...args)
     } finally {
       decRunDepth()
       endTracking(this, prevSub)
@@ -138,16 +139,17 @@ interface RenderEffect extends Effect {
   job: SchedulerJob
 }
 
+type NullState = Record<string | number, any>
+
 /**
  * Provided for compiler injection
  * @compiler
  */
-export function renderEffect<T extends Record<PropertyKey, any>>(
-  fn: (prevState: T) => void,
-  state: T,
-) {
+export function renderEffect(fn: (cacheState: NullState) => void) {
+  const cacheState = Object.create(null) as NullState
+
   if (__SSR__) {
-    fn(state)
+    fn(cacheState)
   } else {
     const e = new Effect(fn) as RenderEffect
     e.order = e.s ? e.s._ec++ : 0
@@ -155,12 +157,11 @@ export function renderEffect<T extends Record<PropertyKey, any>>(
     e.notify = renderNotify
 
     const job: SchedulerJob = () => {
-      if (e.dirty) e.run(state)
+      if (e.dirty) e.run(cacheState)
     }
-    job.order = 0
     job.flags! |= SchedulerJobFlags.AllowRecurse
     e.job = job
-    e.run(state)
+    e.run(cacheState)
   }
 }
 
@@ -168,74 +169,4 @@ function renderNotify(this: RenderEffect) {
   if (!(this._flags & ReactiveFlags.EffectPaused)) {
     queueJob(this.job, this.s ? this.s.uid : undefined, false, this.order)
   }
-}
-
-// ============================================================================================
-// ============================================================================================
-// ============================================================================================
-export interface EffectOptions {
-  scheduler?: (...args: any[]) => any
-  stop?: VoidFunction
-}
-
-export interface EffectRunner<T = any> {
-  (): T
-  stop(): void
-  /**
-   * @internal
-   */
-  e: Effect<T>
-}
-
-/**
- * base effect
- * @example
- * const run = effect(() => {}, {
- *  scheduler: () => queueMicrotask(run)
- * })
- */
-export function effect<T = void>(fn: () => T, options?: EffectOptions): EffectRunner<T> {
-  const e = new Effect(fn)
-
-  if (__SSR__) {
-    e.run = NOOP
-  }
-
-  if (options) {
-    const { stop, scheduler } = options
-    if (stop) {
-      const _stop = e.stop
-      e.stop = () => {
-        _stop.call(e)
-        stop()
-      }
-    }
-
-    if (scheduler) {
-      e.notify = () => {
-        if (!(e._flags & ReactiveFlags.EffectPaused)) {
-          scheduler()
-        }
-      }
-    }
-  }
-
-  try {
-    e.run()
-  } catch (err) {
-    e.stop()
-    throw err
-  }
-
-  const runner = e.run.bind(e) as EffectRunner
-  runner.e = e
-  runner.stop = _stopEffect
-  return runner
-}
-
-/**
- * Stops the effect associated with the given runner.
- */
-function _stopEffect(this: EffectRunner): void {
-  this.e.stop()
 }

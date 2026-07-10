@@ -42,10 +42,12 @@ type Writable<T = unknown> = {
 
 export type WritableComputed<T = unknown> = Computed<T> & Writable<T>
 
+export type ComputedLike<T = unknown> = Computed<T> | WritableComputed<T>
+
 export type ComputedGetter<T> = (oldValue?: T) => T
 export type ComputedSetter<T> = (newValue: T) => void
 
-export const isComputed = <T>(fn: Function): fn is Computed<T> =>
+export const isComputed = <T>(fn: Function): fn is ComputedLike<T> =>
   fn.name === 'bound ' + _computedOperation.name
 
 /**
@@ -153,6 +155,6 @@ function _computedOperation<T>(this: ComputedNode<T>, ...args: [] | [T]): T | vo
   if (this.set) {
     this.set(args[0])
   } else if (__DEV__) {
-    console.warn('[Mytng warn]: Write operation failed: computed value is readonly')
+    console.warn('Write operation failed: computed value is readonly')
   }
 }

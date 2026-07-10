@@ -1,6 +1,7 @@
-import { defineReadonlyProperty, isArray, isEqual, isPlainObject } from '../helpers'
+import { defineReadonlyProperty, isArray, isEqual, isFunction, isPlainObject } from '../helpers'
 import { ReactiveFlags } from './constants'
 import { type ReactiveNode, activeSub, link, propagate, shallowPropagate, tryFlush } from './system'
+import { isComputed } from './computed'
 
 export interface SignalNode<T = unknown> extends ReactiveNode {
   _update(): boolean
@@ -29,6 +30,13 @@ export type Signal<T = unknown> = {
  */
 export const isSignal = <T>(fn: Function): fn is Signal<T> =>
   fn.name === 'bound ' + _signalOperation.name
+
+/**
+ * isSignal Or isComputed
+ */
+export function isSignalLike(obj: unknown) {
+  return isFunction(obj) && (isSignal(obj) || isComputed(obj))
+}
 
 /**
  * @example

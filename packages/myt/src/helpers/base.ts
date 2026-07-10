@@ -4,6 +4,9 @@ export const assign: typeof Object.assign = Object.assign
 
 export const isEqual: typeof Object.is = Object.is
 
+export const getOwnDescriptor: typeof Object.getOwnPropertyDescriptor =
+  Object.getOwnPropertyDescriptor
+
 const _hasOwnProperty = Object.prototype.hasOwnProperty
 export const hasOwn = <T extends object>(obj: T, key: PropertyKey): key is keyof T =>
   _hasOwnProperty.call(obj, key)

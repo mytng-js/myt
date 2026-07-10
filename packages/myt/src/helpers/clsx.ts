@@ -12,7 +12,6 @@ type ClassValue =
   | ClassValue[]
 
 /**
- * @see https://www.npmjs.com/package/clsx
  * @example
  * const classStr = clsx(true, false, '', null, undefined, 0, NaN)
  * // => ''

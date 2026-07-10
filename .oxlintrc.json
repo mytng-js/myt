@@ -55,7 +55,7 @@
 
     // Browser DOM
     {
-      "files": ["packages/myt/client/**", "packages/myt/src/helpers/browser.ts"],
+      "files": ["packages/myt/src/browser/**"],
       "plugins": ["import"],
       "rules": {
         "no-restricted-globals": ["error", "module", "require"],
@@ -73,7 +73,7 @@
         "no-restricted-imports": [
           "error",
           {
-            "paths": ["mytng/server", "mytng/client"]
+            "paths": ["mytng/server"]
           }
         ]
       }

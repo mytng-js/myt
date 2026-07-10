@@ -18,3 +18,13 @@ declare interface String {
    */
   substring(start: number, end?: number): string
 }
+
+declare global {
+  interface Window {
+    _$HY?: {
+      evts?: Event[] | null
+      els?: WeakSet<HTMLElement | Element>
+      done?: boolean
+    }
+  }
+}

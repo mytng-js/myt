@@ -105,7 +105,7 @@ export function startTracking(sub: ReactiveNode) {
 export function endTracking(sub: ReactiveNode, prevSub: ReactiveNode | undefined): void {
   if (__DEV__ && activeSub !== sub) {
     console.warn(
-      `[Mytng warn]: Active effect was not restored correctly - this is likely a Mytng signals internal bug.`,
+      `Active effect was not restored correctly - this is likely a Mytng signals internal bug.`,
     )
   }
 
@@ -155,9 +155,7 @@ export function enableTracking(): void {
  */
 export function resetTracking(): void {
   if (__DEV__ && resetTrackingStack.length === 0) {
-    console.warn(
-      `[Mytng warn]: resetTracking() was called when there was no active tracking to reset.`,
-    )
+    console.warn(`resetTracking() was called when there was no active tracking to reset.`)
   }
 
   activeSub = resetTrackingStack.length ? resetTrackingStack.pop() : undefined
@@ -187,9 +185,7 @@ export function onEffectCleanup(fn: VoidFunction, noWarn?: boolean): void {
       }
     }
   } else if (__DEV__ && !noWarn) {
-    console.warn(
-      `[Mytng warn]: onEffectCleanup() was called when there was no active effect to associate with.`,
-    )
+    console.warn(`onEffectCleanup() was called when there was no active effect to associate with.`)
   }
 }
 

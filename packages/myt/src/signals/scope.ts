@@ -63,11 +63,17 @@ export class EffectScope implements ReactiveNode {
     return !(this._flags & ReactiveFlags.EffectStop)
   }
 
-  run<T>(fn: () => T): T | undefined {
+  run<T, A extends any[]>(fn: (...args: A) => T, ...args: A): T | undefined {
     const prevScope = activeScope
     try {
       activeScope = this
-      return fn()
+      return fn(...args)
+    } catch (err) {
+      if (__DEV__) {
+        setTimeout(() => {
+          throw err
+        })
+      }
     } finally {
       activeScope = prevScope
     }
@@ -151,7 +157,7 @@ export function onScopeDispose(fn: VoidFunction, noWarn?: boolean) {
     activeScope._cleanups[activeScope._cleanupsLen++] = fn
   } else if (__DEV__ && !noWarn) {
     console.warn(
-      `[Mytng warn]: onScopeDispose() is called when there is no active effect scope to be associated with.`,
+      `onScopeDispose() is called when there is no active effect scope to be associated with.`,
     )
   }
 }
